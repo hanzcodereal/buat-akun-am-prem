@@ -1,0 +1,13 @@
+{
+  "name": "alight-motion-premium",
+  "version": "1.0.0",
+  "description": "Generate Alight Motion Premium account",
+  "main": "api/send.js",
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  }
+}
