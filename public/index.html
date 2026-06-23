@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Alight Motion Premium</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="nav-brand">Alight <span>Motion</span></div>
+    <div class="nav-links">
+        <a class="active" data-page="generate">Generate</a>
+        <a data-page="informasi">Informasi</a>
+        <a data-page="developer">Developer</a>
+    </div>
+</div>
+
+<div class="container">
+    <div id="page-generate" class="page active">
+        <h1>
+            Alight Motion
+            <small>Premium</small>
+        </h1>
+        <div class="subtitle">
+            Buat akun premium alight motion
+        </div>
+
+        <div class="section">
+            <div class="section-title">1. Kirim Link Verifikasi</div>
+            <label for="emailSend">Email tujuan</label>
+            <input type="email" id="emailSend" placeholder="contoh@email.com" value="">
+            <div class="btn-group">
+                <button class="btn btn-primary" id="sendBtn">Kirim Link</button>
+            </div>
+            <div id="sendResponse" class="response-box" style="display:none;"></div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">2. Verifikasi Link</div>
+            <label for="emailVerify">Email</label>
+            <input type="email" id="emailVerify" placeholder="contoh@email.com" value="">
+            <label for="linkVerify" style="margin-top: 12px;">Link verifikasi</label>
+            <input type="text" id="linkVerify" placeholder="https://... atau kode link">
+            <label for="passwordInput" style="margin-top: 12px;">Password</label>
+            <input type="password" id="passwordInput" placeholder="Masukkan password">
+            <div class="btn-group">
+                <button class="btn btn-primary" id="verifyBtn">Verifikasi</button>
+            </div>
+            <div id="verifyResponse" class="response-box" style="display:none;"></div>
+        </div>
+
+        <hr class="divider">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="apikey-hint"></span>
+            <span class="status-badge" id="statusIndicator"></span>
+        </div>
+    </div>
+
+    <div id="page-informasi" class="page">
+        <h1>Informasi</h1>
+        <div class="subtitle">Informasi tentang layanan ini</div>
+        
+        <div class="info-card">
+            <h3>Tentang Layanan</h3>
+            <p>Layanan ini digunakan untuk verifikasi akun premium Alight Motion melalui email.</p>
+            <p>Pengguna dapat mengirim link verifikasi ke email dan melakukan verifikasi untuk mendapatkan akses premium.</p>
+        </div>
+
+        <div class="info-card">
+            <h3>Cara Penggunaan</h3>
+            <p><strong>1.</strong> Masukkan email pada form "Kirim Link Verifikasi",
+            wajib mengunakan email dari https://generator.email</p>
+            <p><strong>2.</strong> Klik tombol "Kirim Link" untuk mengirim link verifikasi ke email</p>
+            <p><strong>3.</strong> Cek email dan salin link verifikasi yang diterima</p>
+            <p><strong>4.</strong> Masukkan email, link verifikasi, dan password pada form "Verifikasi Link"</p>
+            <p><strong>5.</strong> Klik "Verifikasi" untuk menyelesaikan proses</p>
+        </div>
+    </div>
+
+    <div id="page-developer" class="page">
+        <h1>Developer</h1>
+        <div class="subtitle">Informasi pengembang aplikasi</div>
+        
+        <div class="developer-card">
+            <h3>Aplikasi</h3>
+            <div class="developer-item">
+                <span class="developer-label">Nama</span>
+                <span class="developer-value">Generate Alight Motion Premium</span>
+            </div>
+            <div class="developer-item">
+                <span class="developer-label">Versi</span>
+                <span class="developer-value">1.0.0</span>
+            </div>
+            <div class="developer-item">
+                <span class="developer-label">Dirilis</span>
+                <span class="developer-value">2026</span>
+            </div>
+            <div class="developer-item">
+                <span class="developer-label">Framework</span>
+                <span class="developer-value">HTML, CSS, JavaScript</span>
+            </div>
+            <div class="developer-item">
+                <span class="developer-label">Hosting</span>
+                <span class="developer-value">Vercel</span>
+            </div>
+        </div>
+
+        <div class="developer-card">
+            <h3>Developer</h3>
+            <div class="developer-item">
+                <span class="developer-label">Nama</span>
+                <span class="developer-value">hanzz</span>
+            </div>
+            <div class="developer-item">
+                <span class="developer-label">Email</span>
+                <span class="developer-value">hanzzcodee@gmail.com</span>
+            </div>
+            <div class="developer-item">
+                <span class="developer-label">Saweria</span>
+                <span class="developer-value">
+                    <a href="https://saweria.co/hanzreally" target="_blank" class="btn-link">Open</a>
+                </span>
+            </div>
+            <div class="developer-item">
+                <span class="developer-label">Toko Top Up</span>
+                <span class="developer-value">
+                    <a href="https://saweria.co/hanzreally/toko-top-up" target="_blank" class="btn-link">Open</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+      </html>
