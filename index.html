@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Alight Motion Premium</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: #ffffff;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background: #ffffff;
+            padding: 15px 30px;
+            border-bottom: 3px solid #00cc00;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .nav-brand {
+            font-size: 20px;
+            font-weight: 700;
+            color: #000000;
+        }
+        .nav-brand span {
+            color: #00cc00;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 8px 16px;
+            border: 2px solid transparent;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .nav-links a:hover {
+            border-bottom: 2px solid #00cc00;
+        }
+        .nav-links a.active {
+            border-bottom: 2px solid #00cc00;
+            color: #00cc00;
+        }
+        .container {
+            background: #ffffff;
+            padding: 30px 35px;
+            max-width: 100%;
+            width: 100%;
+            color: #000000;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        h1 {
+            font-size: 26px;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: #000000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h1 small {
+            font-size: 14px;
+            font-weight: 400;
+            color: #555555;
+            margin-left: auto;
+        }
+        .subtitle {
+            color: #555555;
+            font-size: 14px;
+            border-bottom: 3px solid #00cc00;
+            padding-bottom: 18px;
+            margin-bottom: 24px;
+        }
+        .section {
+            background: #ffffff;
+            border-radius: 0;
+            padding: 20px 22px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #00cc00;
+        }
+        .section-title {
+            font-weight: 500;
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #000000;
+            letter-spacing: 0.3px;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #f5f5f5;
+            border: 2px solid #00cc00;
+            border-radius: 0;
+            color: #000000;
+            font-size: 15px;
+            transition: 0.2s;
+            outline: none;
+        }
+        input:focus {
+            border-color: #009900;
+            box-shadow: 0 0 0 3px rgba(0, 204, 0, 0.25);
+        }
+        input::placeholder {
+            color: #888888;
+        }
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            flex: 1;
+            min-width: 100px;
+            padding: 12px 10px;
+            border: 2px solid #00cc00;
+            border-radius: 0;
+            font-weight: 600;
+            font-size: 14px;
+            background: #ffffff;
+            color: #000000;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: #00cc00;
+            color: #ffffff;
+            box-shadow: none;
+        }
+        .btn-primary:hover {
+            background: #00cc00;
+            transform: none;
+        }
+        .btn-secondary {
+            background: #ffffff;
+            color: #000000;
+        }
+        .btn-secondary:hover {
+            background: #f0f0f0;
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .response-box {
+            background: #f5f5f5;
+            border-radius: 0;
+            padding: 16px 20px;
+            margin-top: 16px;
+            border-left: 5px solid #00cc00;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            color: #000000;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .response-box.error {
+            border-left-color: #ff3333;
+            color: #cc0000;
+        }
+        .response-box.success {
+            border-left-color: #00cc00;
+            color: #006600;
+        }
+        .loader {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .status-badge {
+            background: #f5f5f5;
+            padding: 4px 12px;
+            border-radius: 0;
+            font-size: 12px;
+            color: #000000;
+            border: 2px solid #00cc00;
+        }
+        .divider {
+            border: none;
+            border-top: 3px solid #00cc00;
+            margin: 18px 0;
+        }
+        .apikey-hint {
+            background: #f5f5f5;
+            padding: 8px 14px;
+            border-radius: 0;
+            font-size: 13px;
+            color: #000000;
+            display: inline-block;
+            border: 2px solid #00cc00;
+        }
+        .info-card {
+            background: #f5f5f5;
+            padding: 20px;
+            border-left: 5px solid #00cc00;
+            margin-bottom: 15px;
+        }
+        .info-card h3 {
+            color: #000000;
+            margin-bottom: 10px;
+        }
+        .info-card p {
+            color: #333333;
+            margin: 5px 0;
+        }
+        .info-card strong {
+            color: #000000;
+        }
+        .developer-card {
+            background: #f5f5f5;
+            padding: 20px;
+            border-left: 5px solid #00cc00;
+            margin-bottom: 15px;
+        }
+        .developer-card h3 {
+            color: #000000;
+            margin-bottom: 10px;
+        }
+        .developer-item {
+            display: flex;
+            padding: 6px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .developer-item:last-child {
+            border-bottom: none;
+        }
+        .developer-label {
+            font-weight: 600;
+            color: #000000;
+            width: 120px;
+            flex-shrink: 0;
+        }
+        .developer-value {
+            color: #333333;
+        }
+        .btn-link {
+            background: #00cc00;
+            color: #ffffff;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 0;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: none;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .btn-link:hover {
+            background: #00cc00;
+        }
+        .btn-link:active {
+            background: #00cc00;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="nav-brand">Alight <span>Motion</span></div>
+    <div class="nav-links">
+        <a class="active" data-page="generate">Generate</a>
+        <a data-page="informasi">Informasi</a>
+        <a data-page="developer">Developer</a>
+    </div>
+</div>
+
+<div class="container">
+    <div id="page-generate" class="page active">
+        <h1>
+            Alight Motion
+            <small>Premium</small>
+        </h1>
+        <div class="subtitle">
+            Buat akun premium alight motion
+        </div>
+
+        <div class="section">
+            <div class="section-title">1. Kirim Link Verifikasi</div>
+            <label for="emailSend">Email tujuan</label>
+            <input type="email" id="emailSend" placeholder="contoh@email.com" value="">
+            <div class="btn-group">
+                <button class="btn btn-primary" id="sendBtn">Kirim Link</button>
+            </div>
+            <div id="sendResponse" class="response-box" style="display:none;"></div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">2. Verifikasi Link</div>
+            <label for="emailVerify">Email</label>
+            <input type="email" id="emailVerify" placeholder="contoh@email.com" value="">
+            <label for="linkVerify" style="margin-top: 12px;">Link verifikasi</label>
+            <input type="text" id="linkVerify" placeholder="https://alight-creative.firebaseapp.com/">
+            <label for="passwordInput" style="margin-top: 12px;">Password</label>
+            <input type="password" id="passwordInput" placeholder="Masukkan password">
+            <div class="btn-group">
+                <button class="btn btn-primary" id="verifyBtn">Verifikasi</button>
+            </div>
+            <div id="verifyResponse" class="response-box" style="display:none;"></div>
+        </div>
+
+        <hr class="divider">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="apikey-hint"></span>
+            <span class="status-badge" id="statusIndicator"></span>
+        </div>
+    </div>
+
+    <div id="page-informasi" class="page">
+        <h1>Informasi</h1>
+        <div class="subtitle">Informasi tentang layanan ini</div>
+        
+        <div class="info-card">
+            <h3>Tentang Layanan</h3>
+            <p>Layanan ini digunakan untuk verifikasi akun premium Alight Motion melalui email.</p>
+            <p>Pengguna dapat mengirim link verifikasi ke email dan melakukan verifikasi untuk mendapatkan akses premium.</p>
+        </div>
+
+        <div class="info-card">
+            <h3>Cara Penggunaan</h3>
+            <p><strong>1.</strong> Masukkan email pada form "Kirim Link Verifikasi",
+            wajib mengunakan email dari https://generator.email</p>
+            <p><strong>2.</strong> Klik tombol "Kirim Link" untuk mengirim link verifikasi ke email</p>
+            <p><strong>3.</strong> Cek email dan salin link verifikasi yang diterima</p>
+            <p><strong>4.</strong> Masukkan email, link verifikasi, dan password pada form "Verifikasi Link"</p>
+            <p><strong>5.</strong> Klik "Verifikasi" untuk menyelesaikan proses</p>
+        </div>
+    </div>
+
+    <div id="page-developer" class="page">
+        <h1>Developer</h1>
+        <div class="subtitle">Informasi pengembang aplikasi</div>
+        
+        <div class="developer-card">
+            <h3>Aplikasi</h3>
+            <div class="developer-item">
+                <span class="developer-label">Nama</span>
+                <span class="developer-value">Generate Alight Motion Premium</span>
+            </div>
+            <div class="developer-item">
+                <span class="developer-label">Versi</span>
+                <span class="developer-value">1.0.0</span>
+            </div>
+            <div class="developer-item">
+                <span class="developer-label">Dirilis</span>
+                <span class="developer-value">2026</span>
+            </div>
+            <div class="developer-item">
+                <span class="developer-label">Framework</span>
+                <span class="developer-value">HTML, CSS, JavaScript</span>
+            </div>
+            <div class="developer-item">
+                <span class="developer-label">Hosting</span>
+                <span class="developer-value">Vercel</span>
+            </div>
+        </div>
+
+        <div class="developer-card">
+            <h3>Developer</h3>
+            <div class="developer-item">
+                <span class="developer-label">Nama</span>
+                <span class="developer-value">hanzz</span>
+            </div>
+            <div class="developer-item">
+                <span class="developer-label">Email</span>
+                <span class="developer-value">hanzzcodee@gmail.com</span>
+            </div>
+            <div class="developer-item">
+                <span class="developer-label">Saweria</span>
+                <span class="developer-value">
+                    <a href="https://saweria.co/hanzreally" target="_blank" class="btn-link">Open</a>
+                </span>
+            </div>
+            <div class="developer-item">
+                <span class="developer-label">Toko Top Up</span>
+                <span class="developer-value">
+                    <a href="https://saweria.co/hanzreally/toko-top-up" target="_blank" class="btn-link">Open</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const BASE_URL = 'https://api.theresav.biz.id/premium/alightmotion';
+        const APIKEY = 'hanz';
+
+        const emailSend = document.getElementById('emailSend');
+        const sendBtn = document.getElementById('sendBtn');
+        const sendResponse = document.getElementById('sendResponse');
+
+        const emailVerify = document.getElementById('emailVerify');
+        const linkVerify = document.getElementById('linkVerify');
+        const passwordInput = document.getElementById('passwordInput');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const verifyResponse = document.getElementById('verifyResponse');
+
+        const statusIndicator = document.getElementById('statusIndicator');
+
+        function showResponse(element, message, type = 'info') {
+            element.style.display = 'block';
+            element.textContent = message;
+            element.className = 'response-box';
+            if (type === 'error') {
+                element.classList.add('error');
+            } else if (type === 'success') {
+                element.classList.add('success');
+            }
+        }
+
+        function clearResponse(element) {
+            element.style.display = 'none';
+            element.textContent = '';
+            element.className = 'response-box';
+        }
+
+        function setLoading(button, loading) {
+            if (loading) {
+                button.disabled = true;
+                button.innerHTML = '<span class="loader"></span> Memproses...';
+                statusIndicator.textContent = 'Loading...';
+                statusIndicator.style.color = '#009900';
+            } else {
+                button.disabled = false;
+                button.innerHTML = button.dataset.originalText || button.textContent;
+                statusIndicator.textContent = '';
+                statusIndicator.style.color = '#000000';
+            }
+        }
+
+        sendBtn.dataset.originalText = sendBtn.innerHTML;
+        verifyBtn.dataset.originalText = verifyBtn.innerHTML;
+
+        sendBtn.addEventListener('click', async function(e) {
+            e.preventDefault();
+            const email = emailSend.value.trim();
+            if (!email) {
+                showResponse(sendResponse, 'Harap masukkan email.', 'error');
+                return;
+            }
+            if (!email.includes('@') || !email.includes('.')) {
+                showResponse(sendResponse, 'Format email tidak valid.', 'error');
+                return;
+            }
+
+            clearResponse(sendResponse);
+            setLoading(sendBtn, true);
+
+            try {
+                const url = `${BASE_URL}/send?email=${encodeURIComponent(email)}&apikey=${APIKEY}`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (response.ok && data.status === true) {
+                    showResponse(sendResponse, 
+                        `${data.message || 'Link verifikasi terkirim.'}\nEmail: ${data.data?.email || email}`,
+                        'success'
+                    );
+                } else {
+                    const errMsg = data.message || data.error || 'Gagal mengirim link.';
+                    showResponse(sendResponse, `${errMsg}`, 'error');
+                }
+            } catch (error) {
+                showResponse(sendResponse, `Error jaringan: ${error.message}`, 'error');
+            } finally {
+                setLoading(sendBtn, false);
+            }
+        });
+
+        verifyBtn.addEventListener('click', async function(e) {
+            e.preventDefault();
+            const email = emailVerify.value.trim();
+            const link = linkVerify.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (!email) {
+                showResponse(verifyResponse, 'Harap masukkan email.', 'error');
+                return;
+            }
+            if (!link) {
+                showResponse(verifyResponse, 'Harap masukkan link verifikasi.', 'error');
+                return;
+            }
+            if (!password) {
+                showResponse(verifyResponse, 'Harap masukkan password.', 'error');
+                return;
+            }
+            if (!email.includes('@') || !email.includes('.')) {
+                showResponse(verifyResponse, 'Format email tidak valid.', 'error');
+                return;
+            }
+
+            if (password !== 'buat_akun_amprem_byhanzcode') {
+                showResponse(verifyResponse, 'Password salah!', 'error');
+                return;
+            }
+
+            clearResponse(verifyResponse);
+            setLoading(verifyBtn, true);
+
+            try {
+                const url = `${BASE_URL}/verify?email=${encodeURIComponent(email)}&link=${encodeURIComponent(link)}&apikey=${APIKEY}`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (response.ok && data.status === true) {
+                    let msg = `${data.message || 'Verifikasi berhasil.'}`;
+                    if (data.data) {
+                        msg += `\nEmail: ${data.data.email || '-'}`;
+                        msg += `\nTipe: ${data.data.type || '-'}`;
+                        msg += `\nDurasi: ${data.data.duration || '-'}`;
+                    }
+                    showResponse(verifyResponse, msg, 'success');
+                } else {
+                    if (response.status === 500) {
+                        showResponse(verifyResponse, `Server mengalami kesalahan (500). Pastikan link & email benar.\nPesan: ${data.message || 'Internal Server Error'}`, 'error');
+                    } else {
+                        const errMsg = data.message || data.error || 'Verifikasi gagal.';
+                        showResponse(verifyResponse, `${errMsg}`, 'error');
+                    }
+                }
+            } catch (error) {
+                showResponse(verifyResponse, `Error jaringan: ${error.message}`, 'error');
+            } finally {
+                setLoading(verifyBtn, false);
+            }
+        });
+
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const pages = {
+            generate: document.getElementById('page-generate'),
+            informasi: document.getElementById('page-informasi'),
+            developer: document.getElementById('page-developer')
+        };
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const page = this.dataset.page;
+
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+
+                Object.keys(pages).forEach(key => {
+                    pages[key].classList.remove('active');
+                });
+                pages[page].classList.add('active');
+            });
+        });
+    })();
+</script>
+</body>
+</html>
